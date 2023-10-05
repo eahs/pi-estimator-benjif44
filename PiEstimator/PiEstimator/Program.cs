@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Xml.Schema;
 
 namespace PiEstimator
 {
@@ -23,11 +25,20 @@ namespace PiEstimator
         static double EstimatePi(long n)
         {
             Random rand = new Random(System.Environment.TickCount);
-            double pi = 0.0;
+            double countIn = 0;
 
-            // TODO: Calculate Pi
+            for(int i = 0; i < n; i++)
+            {
+                double x = rand.NextDouble();
+                double y = rand.NextDouble(); 
 
-            return pi;
+                var dist = Math.Sqrt(x * x + y * y);
+                if(dist <= 1)
+                {
+                    countIn++;
+                }
+            }
+            return (countIn/n) * 4;
         }
 
         static long GetNumber(string prompt)
